@@ -15,7 +15,6 @@ if(!defined('ABSPATH')) {
 class WooDAP {
 
 	public static $version = '1.0';
-	private $options;
 
 	function __construct() {
 
@@ -46,6 +45,7 @@ class WooDAP {
 		$count = wp_count_posts('product');
 		?>
 		<div class="wrap">
+			<?php if($count->publish > 0): ?>
 			<h1>Delete all products</h1>
 			<p>You currently have <strong><?php echo $count->publish; ?> published products</strong> in Woocommerce. Please type "DELETE" in the field below.</p>
 			<form method="post" id="woodap-form" data-url="<?php echo admin_url( 'admin-post.php' ); ?>">
@@ -56,6 +56,9 @@ class WooDAP {
 				<h2>Delete in Progress: <strong><span>0/<?php echo $count->publish; ?></span></strong></h2>
 				<ul></ul>
 			</div>
+			<?php else: ?>
+			<h1>Nothing to delete.</h1>
+			<?php endif; ?>
 		</div>
 
 		<script type="text/javascript">
@@ -152,4 +155,4 @@ class WooDAP {
 
 }
 
-$WooDAP = new WooDAP();
+new WooDAP();
